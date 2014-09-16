@@ -1,7 +1,9 @@
 'use strict';
 module.exports = function (grunt) {
 
-  require('jit-grunt')(grunt);
+  require('jit-grunt')(grunt, {
+    coveralls: 'grunt-karma-coveralls'
+  });
   require('time-grunt')(grunt);
 
   var config = {
