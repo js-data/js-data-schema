@@ -1,0 +1,71 @@
+{
+  "name": "js-data-schema",
+  "description": "Define and validate rules, datatypes and schemata in Node and in the browser.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/js-data/js-data-schema",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/js-data/js-data-schema.git"
+  },
+  "author": {
+    "name": "Jason Dobry",
+    "url": "http://www.pseudobry.com",
+    "email": "jason.dobry@gmail.com"
+  },
+  "main": "./lib/index.js",
+  "directories": {
+    "lib": "./lib",
+    "test": "./test"
+  },
+  "keywords": [
+    "validate",
+    "validator",
+    "datatype",
+    "model",
+    "schema",
+    "schemata",
+    "rule",
+    "object"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/js-data/js-data-schema/blob/master/LICENSE"
+    }
+  ],
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "mout": "^0.10.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.0.1",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-groc": "^0.4.5",
+    "grunt-karma": "^0.9.0",
+    "grunt-karma-coveralls": "^2.5.2",
+    "grunt-mocha-test": "^0.12.0",
+    "jit-grunt": "^0.8.0",
+    "karma": "^0.12.23",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-coverage": "^0.2.6",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-mocha": "^0.1.9",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-script-launcher": "^0.1.0",
+    "karma-sinon": "^1.0.3",
+    "karma-spec-reporter": "0.0.13",
+    "mocha": "^1.21.4",
+    "sinon": "^1.10.3",
+    "time-grunt": "^1.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/js-data/js-data-schema/issues",
+    "email": "jason.dobry@gmail.com"
+  }
+}
