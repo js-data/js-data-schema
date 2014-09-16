@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>js-data-schema by js-data</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>js-data-schema</h1>
+        <p>Define and validate rules, datatypes and schemata in Node and in the browser.</p>
+
+        <p class="view"><a href="https://github.com/js-data/js-data-schema">View the Project on GitHub <small>js-data/js-data-schema</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/js-data/js-data-schema/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/js-data/js-data-schema/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/js-data/js-data-schema">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>
+<a name="js-data-schema" class="anchor" href="#js-data-schema"><span class="octicon octicon-link"></span></a>js-data-schema</h2>
+
+<p><strong>Define and validate rules, datatypes and schemata in Node and in the browser.</strong></p>
+
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<h4>
+<a name="node" class="anchor" href="#node"><span class="octicon octicon-link"></span></a>Node</h4>
+
+<p><code>npm install --save js-data-schema</code></p>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">Schemator</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'js-data-schema'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="browser" class="anchor" href="#browser"><span class="octicon octicon-link"></span></a>Browser</h4>
+
+<p><code>npm install --save js-data-schema</code> or <code>bower install --save js-data-schema</code></p>
+
+<p>Load <code>js-data-schema/dist/js-data-schema.js</code> into your browser.</p>
+
+<div class="highlight highlight-js"><pre><span class="c1">// global constructor if you're not using AMD or CommonJS</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">Schemator</span><span class="p">;</span>
+
+<span class="c1">// AMD</span>
+<span class="nx">define</span><span class="p">([</span><span class="s1">'js-data-schema'</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">Schemator</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">})</span>
+
+<span class="c1">// CommonJS</span>
+<span class="kd">var</span> <span class="nx">Schemator</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'js-data-schema'</span><span class="p">);</span>
+</pre></div>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">schemator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schemator</span><span class="p">();</span>
+
+<span class="nx">schemator</span><span class="p">.</span><span class="nx">defineSchema</span><span class="p">(</span><span class="s1">'Person'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s1">'string'</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">errors</span> <span class="o">=</span> <span class="nx">schemator</span><span class="p">.</span><span class="nx">validateSync</span><span class="p">(</span><span class="s1">'Person'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'John'</span> <span class="p">});</span>
+
+<span class="nx">errors</span><span class="p">;</span> <span class="c1">// null</span>
+
+<span class="nx">errors</span> <span class="o">=</span> <span class="nx">schemator</span><span class="p">.</span><span class="nx">validateSync</span><span class="p">(</span><span class="s1">'Person'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="mi">50043</span> <span class="p">});</span>
+
+<span class="nx">errors</span><span class="p">;</span> <span class="c1">// {</span>
+              <span class="nx">rule</span><span class="o">:</span> <span class="s1">'type'</span><span class="p">,</span>
+              <span class="nx">actual</span><span class="o">:</span> <span class="s1">'number'</span><span class="p">,</span>
+              <span class="nx">expected</span><span class="o">:</span> <span class="s1">'string'</span>
+            <span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="status" class="anchor" href="#status"><span class="octicon octicon-link"></span></a>Status</h2>
+
+<table>
+<thead><tr>
+<th>Branch</th>
+<th>Master</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Bower</td>
+<td><a href="http://badge.fury.io/bo/js-data-schema"><img src="https://badge.fury.io/bo/js-data-schema.png" alt="Bower version"></a></td>
+</tr>
+<tr>
+<td>NPM</td>
+<td><a href="http://badge.fury.io/js/js-data-schema"><img src="https://badge.fury.io/js/js-data-schema.png" alt="NPM version"></a></td>
+</tr>
+<tr>
+<td>Build Status</td>
+<td><a href="https://travis-ci.org/js-data/js-data-schema"><img src="https://travis-ci.org/js-data/js-data-schema.png?branch=master" alt="Build Status"></a></td>
+</tr>
+<tr>
+<td>Code Climate</td>
+<td><a href="https://codeclimate.com/github/js-data/js-data-schema"><img src="https://codeclimate.com/github/js-data/js-data-schema.png" alt="Code Climate"></a></td>
+</tr>
+<tr>
+<td>Dependency Status</td>
+<td><a href="https://gemnasium.com/js-data/js-data-schema"><img src="https://gemnasium.com/js-data/js-data-schema.png" alt="Dependency Status"></a></td>
+</tr>
+<tr>
+<td>Coverage</td>
+<td><a href="https://coveralls.io/r/js-data/js-data-schema?branch=master"><img src="https://coveralls.io/repos/js-data/js-data-schema/badge.png?branch=master" alt="Coverage Status"></a></td>
+</tr>
+</tbody>
+</table><h2>
+<a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h2>
+
+<h3>
+<a name="schemator" class="anchor" href="#schemator"><span class="octicon octicon-link"></span></a>Schemator</h3>
+
+<h4>
+<a name="schemator-1" class="anchor" href="#schemator-1"><span class="octicon octicon-link"></span></a>Schemator()</h4>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">schemator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schemator</span><span class="p">();</span>
+</pre></div>
+
+<h4>
+<a name="schematoravailabledatatypes" class="anchor" href="#schematoravailabledatatypes"><span class="octicon octicon-link"></span></a>Schemator#availableDataTypes()</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">availableDataTypes</span><span class="p">();</span> <span class="c1">// ['boolean', 'string', 'etc.']</span>
+</pre></div>
+
+<h4>
+<a name="schematoravailablerules" class="anchor" href="#schematoravailablerules"><span class="octicon octicon-link"></span></a>Schemator#availableRules()</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">availableRules</span><span class="p">();</span> <span class="c1">// ['type', 'minLength', 'etc.']</span>
+</pre></div>
+
+<h4>
+<a name="schematoravailableschemata" class="anchor" href="#schematoravailableschemata"><span class="octicon octicon-link"></span></a>Schemator#availableSchemata()</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">defineSchema</span><span class="p">(</span><span class="s1">'PersonSchema'</span><span class="p">,</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+<span class="nx">schemator</span><span class="p">.</span><span class="nx">availableSchemata</span><span class="p">();</span> <span class="c1">// ['PersonSchema']</span>
+</pre></div>
+
+<h4>
+<a name="schematorgetdatatypename" class="anchor" href="#schematorgetdatatypename"><span class="octicon octicon-link"></span></a>Schemator#getDataType(name)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">getDataType</span><span class="p">(</span><span class="s1">'myDataType'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="schematorgetrulename" class="anchor" href="#schematorgetrulename"><span class="octicon octicon-link"></span></a>Schemator#getRule(name)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">getRule</span><span class="p">(</span><span class="s1">'myRule'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="schematorgetschemaname" class="anchor" href="#schematorgetschemaname"><span class="octicon octicon-link"></span></a>Schemator#getSchema(name)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">getSchema</span><span class="p">(</span><span class="s1">'PersonSchema'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="schematorremovedatatypename" class="anchor" href="#schematorremovedatatypename"><span class="octicon octicon-link"></span></a>Schemator#removeDataType(name)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">removeDataType</span><span class="p">(</span><span class="s1">'myDataType'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="schematorremoverulename" class="anchor" href="#schematorremoverulename"><span class="octicon octicon-link"></span></a>Schemator#removeRule(name)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">removeRule</span><span class="p">(</span><span class="s1">'myRule'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="schematorremoveschemaname" class="anchor" href="#schematorremoveschemaname"><span class="octicon octicon-link"></span></a>Schemator#removeSchema(name)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">removeSchema</span><span class="p">(</span><span class="s1">'PersonSchema'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="schematordefinedatatypename-typedefinition" class="anchor" href="#schematordefinedatatypename-typedefinition"><span class="octicon octicon-link"></span></a>Schemator#defineDataType(name, typeDefinition)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">defineDataType</span><span class="p">(</span><span class="s1">'NaN'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">rule</span><span class="o">:</span> <span class="s1">'type'</span><span class="p">,</span>
+      <span class="nx">actual</span><span class="o">:</span> <span class="k">typeof</span> <span class="nx">x</span><span class="p">,</span>
+      <span class="nx">expected</span><span class="o">:</span> <span class="s1">'NaN'</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<h4>
+<a name="schematordefinerulename-rulefunc-async" class="anchor" href="#schematordefinerulename-rulefunc-async"><span class="octicon octicon-link"></span></a>Schemator#defineRule(name, ruleFunc[, async])</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">defineRule</span><span class="p">(</span><span class="s1">'divisibleBy'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">divisor</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s1">'number'</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">divisor</span> <span class="o">===</span> <span class="s1">'number'</span> <span class="o">&amp;&amp;</span> <span class="nx">x</span> <span class="o">%</span> <span class="nx">divisor</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">rule</span><span class="o">:</span> <span class="s1">'divisibleBy'</span><span class="p">,</span>
+      <span class="nx">actual</span><span class="o">:</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">x</span> <span class="o">+</span> <span class="s1">' % '</span> <span class="o">+</span> <span class="nx">divisor</span> <span class="o">+</span> <span class="s1">' === '</span> <span class="o">+</span> <span class="p">(</span><span class="nx">x</span> <span class="o">%</span> <span class="nx">divisor</span><span class="p">),</span>
+      <span class="nx">expected</span><span class="o">:</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">x</span> <span class="o">+</span> <span class="s1">' % '</span> <span class="o">+</span> <span class="nx">divisor</span> <span class="o">+</span> <span class="s1">' === 0'</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="nx">schemator</span><span class="p">.</span><span class="nx">defineSchema</span><span class="p">(</span><span class="s1">'mySchema'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">seats</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">divisibleBy</span><span class="o">:</span> <span class="mi">4</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">errors</span> <span class="o">=</span> <span class="nx">schemator</span><span class="p">.</span><span class="nx">getSchema</span><span class="p">(</span><span class="s1">'mySchema'</span><span class="p">).</span><span class="nx">validateSync</span><span class="p">({</span>
+  <span class="nx">seats</span><span class="o">:</span> <span class="mi">16</span>
+<span class="p">});</span>
+
+<span class="nx">errors</span><span class="p">;</span> <span class="c1">//  null</span>
+
+<span class="nx">errors</span> <span class="o">=</span> <span class="nx">schemator</span><span class="p">.</span><span class="nx">getSchema</span><span class="p">(</span><span class="s1">'mySchema'</span><span class="p">).</span><span class="nx">validateSync</span><span class="p">({</span>
+  <span class="nx">seats</span><span class="o">:</span> <span class="mi">17</span>
+<span class="p">});</span>
+
+<span class="nx">errors</span><span class="p">;</span> <span class="c1">//  {</span>
+        <span class="c1">//    seats: {</span>
+        <span class="c1">//      errors: [ {</span>
+        <span class="c1">//        rule: 'divisibleBy',</span>
+        <span class="c1">//        actual: '17 % 4 === 1',</span>
+        <span class="c1">//        expected: '17 % 4 === 0'</span>
+        <span class="c1">//      } ]</span>
+        <span class="c1">//    }</span>
+        <span class="c1">//  }</span>
+</pre></div>
+
+<p>Asynchronous rule:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">defineRule</span><span class="p">(</span><span class="s1">'divisibleBy'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">divisor</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// asynchronity here is fake, but you could do something async, like make an http request</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">x</span> <span class="o">===</span> <span class="s1">'number'</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">divisor</span> <span class="o">===</span> <span class="s1">'number'</span> <span class="o">&amp;&amp;</span> <span class="nx">x</span> <span class="o">%</span> <span class="nx">divisor</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">cb</span><span class="p">({</span>
+        <span class="nx">rule</span><span class="o">:</span> <span class="s1">'divisibleBy'</span><span class="p">,</span>
+        <span class="nx">actual</span><span class="o">:</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">x</span> <span class="o">+</span> <span class="s1">' % '</span> <span class="o">+</span> <span class="nx">divisor</span> <span class="o">+</span> <span class="s1">' === '</span> <span class="o">+</span> <span class="p">(</span><span class="nx">x</span> <span class="o">%</span> <span class="nx">divisor</span><span class="p">),</span>
+        <span class="nx">expected</span><span class="o">:</span> <span class="s1">''</span> <span class="o">+</span> <span class="nx">x</span> <span class="o">+</span> <span class="s1">' % '</span> <span class="o">+</span> <span class="nx">divisor</span> <span class="o">+</span> <span class="s1">' === 0'</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">},</span> <span class="kc">true</span><span class="p">);</span> <span class="c1">// pass true as the third argument</span>
+
+<span class="nx">schemator</span><span class="p">.</span><span class="nx">defineSchema</span><span class="p">(</span><span class="s1">'mySchema'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">seats</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">divisibleBy</span><span class="o">:</span> <span class="mi">4</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">errors</span> <span class="o">=</span> <span class="nx">schemator</span><span class="p">.</span><span class="nx">getSchema</span><span class="p">(</span><span class="s1">'mySchema'</span><span class="p">).</span><span class="nx">validate</span><span class="p">({</span>
+  <span class="nx">seats</span><span class="o">:</span> <span class="mi">16</span>
+<span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">errors</span><span class="p">;</span> <span class="c1">//  null</span>
+
+  <span class="nx">errors</span> <span class="o">=</span> <span class="nx">schemator</span><span class="p">.</span><span class="nx">getSchema</span><span class="p">(</span><span class="s1">'mySchema'</span><span class="p">).</span><span class="nx">validate</span><span class="p">({</span>
+    <span class="nx">seats</span><span class="o">:</span> <span class="mi">17</span>
+  <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">errors</span><span class="p">;</span> <span class="c1">//  {</span>
+            <span class="c1">//    seats: {</span>
+            <span class="c1">//      errors: [ {</span>
+            <span class="c1">//        rule: 'divisibleBy',</span>
+            <span class="c1">//        actual: '17 % 4 === 1',</span>
+            <span class="c1">//        expected: '17 % 4 === 0'</span>
+            <span class="c1">//      } ]</span>
+            <span class="c1">//    }</span>
+            <span class="c1">//  }  </span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+<h4>
+<a name="schematordefineschemaname-definition" class="anchor" href="#schematordefineschemaname-definition"><span class="octicon octicon-link"></span></a>Schemator#defineSchema(name, definition)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">schemator</span><span class="p">.</span><span class="nx">defineSchema</span><span class="p">(</span><span class="s1">'PersonSchema'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">first</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">'string'</span><span class="p">,</span>
+      <span class="nx">maxLength</span><span class="o">:</span> <span class="mi">255</span>
+    <span class="p">},</span>
+    <span class="nx">last</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">'string'</span><span class="p">,</span>
+      <span class="nx">maxLength</span><span class="o">:</span> <span class="mi">255</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">age</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">'number'</span><span class="p">,</span>
+    <span class="nx">max</span><span class="o">:</span> <span class="mi">150</span><span class="p">,</span>
+    <span class="nx">min</span><span class="o">:</span> <span class="mi">0</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<h4>
+<a name="schematorvalidateschemaname-attrs-options-cb" class="anchor" href="#schematorvalidateschemaname-attrs-options-cb"><span class="octicon octicon-link"></span></a>Schemator#validate(schemaName, attrs[, options], cb)</h4>
+
+<p>See <code>Schema#validate(attrs[, options], cb)</code></p>
+
+<h4>
+<a name="schematorvalidatesyncschemaname-attrs-options" class="anchor" href="#schematorvalidatesyncschemaname-attrs-options"><span class="octicon octicon-link"></span></a>Schemator#validateSync(schemaName, attrs[, options])</h4>
+
+<p>See <code>Schema#validateSync(attrs[, options])</code></p>
+
+<h4>
+<a name="schematorsetdefaultsschemaname-attrs" class="anchor" href="#schematorsetdefaultsschemaname-attrs"><span class="octicon octicon-link"></span></a>Schemator#setDefaults(schemaName, attrs)</h4>
+
+<p>See <code>Schema#setDefaults(attrs)</code></p>
+
+<h4>
+<a name="schematorgetdefaults" class="anchor" href="#schematorgetdefaults"><span class="octicon octicon-link"></span></a>Schemator#getDefaults()</h4>
+
+<p>See <code>Schema#getDefaults()</code></p>
+
+<h4>
+<a name="schematoradddefaultstotargetschemaname-target-overwrite" class="anchor" href="#schematoradddefaultstotargetschemaname-target-overwrite"><span class="octicon octicon-link"></span></a>Schemator#addDefaultsToTarget(schemaName, target[, overwrite])</h4>
+
+<p>See <code>Schema#addDefaultsToTarget(target)</code></p>
+
+<h4>
+<a name="schematorstripnonschemaattrsschemaname-target" class="anchor" href="#schematorstripnonschemaattrsschemaname-target"><span class="octicon octicon-link"></span></a>Schemator#stripNonSchemaAttrs(schemaName, target)</h4>
+
+<p>See <code>Schema#stripNonSchemaAttrs(target)</code></p>
+
+<h3>
+<a name="schema" class="anchor" href="#schema"><span class="octicon octicon-link"></span></a>Schema</h3>
+
+<h4>
+<a name="schemavalidateattrs-options-cb" class="anchor" href="#schemavalidateattrs-options-cb"><span class="octicon octicon-link"></span></a>Schema#validate(attrs[, options], cb)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">PersonSchema</span><span class="p">.</span><span class="nx">validate</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s1">'John Anderson'</span>
+<span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">err</span><span class="p">;</span> <span class="c1">// null</span>
+<span class="p">});</span>
+
+<span class="nx">PersonSchema</span><span class="p">.</span><span class="nx">validate</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="mi">5</span>
+<span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">err</span><span class="p">;</span>  <span class="c1">//  {</span>
+        <span class="c1">//    name: {</span>
+        <span class="c1">//      errors: [{</span>
+        <span class="c1">//        rule: 'type',</span>
+        <span class="c1">//        actual: 'number',</span>
+        <span class="c1">//        expected: 'string'</span>
+        <span class="c1">//      }]</span>
+        <span class="c1">//    }</span>
+        <span class="c1">//  }</span>
+<span class="p">});</span>
+</pre></div>
+
+<h4>
+<a name="schemavalidatesyncattrs-options" class="anchor" href="#schemavalidatesyncattrs-options"><span class="octicon octicon-link"></span></a>Schema#validateSync(attrs[, options])</h4>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">errors</span> <span class="o">=</span> <span class="nx">PersonSchema</span><span class="p">.</span><span class="nx">validate</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s1">'John Anderson'</span>
+<span class="p">});</span>
+
+<span class="nx">errors</span><span class="p">;</span> <span class="c1">// null</span>
+
+<span class="nx">errors</span> <span class="o">=</span> <span class="nx">mySchema</span><span class="p">.</span><span class="nx">validate</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="mi">5</span>
+<span class="p">});</span>
+<span class="nx">errors</span><span class="p">;</span> <span class="c1">//  {</span>
+        <span class="c1">//    name: {</span>
+        <span class="c1">//      errors: [{</span>
+        <span class="c1">//        rule: 'type',</span>
+        <span class="c1">//        actual: 'number',</span>
+        <span class="c1">//        expected: 'string'</span>
+        <span class="c1">//      }]</span>
+        <span class="c1">//    }</span>
+        <span class="c1">//  }</span>
+</pre></div>
+
+<h4>
+<a name="schemasetdefaultsattrs" class="anchor" href="#schemasetdefaultsattrs"><span class="octicon octicon-link"></span></a>Schema#setDefaults(attrs)</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">PersonSchema</span><span class="p">.</span><span class="nx">setDefaults</span><span class="p">({</span>
+  <span class="nx">first</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="nx">last</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="nx">plan</span><span class="o">:</span> <span class="s1">'free'</span>
+<span class="p">});</span>
+</pre></div>
+
+<h4>
+<a name="schemagetdefaults" class="anchor" href="#schemagetdefaults"><span class="octicon octicon-link"></span></a>Schema#getDefaults()</h4>
+
+<div class="highlight highlight-js"><pre><span class="nx">PersonSchema</span><span class="p">.</span><span class="nx">getDefaults</span><span class="p">();</span> <span class="c1">// {</span>
+                                 <span class="nx">first</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+                                 <span class="nx">last</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+                                 <span class="nx">age</span><span class="o">:</span> <span class="mi">0</span>
+                               <span class="p">}</span>
+</pre></div>
+
+<h4>
+<a name="schemaadddefaultstotargettarget-overwrite" class="anchor" href="#schemaadddefaultstotargettarget-overwrite"><span class="octicon octicon-link"></span></a>Schema#addDefaultsToTarget(target[, overwrite])</h4>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">first</span><span class="o">:</span> <span class="s1">'John'</span><span class="p">,</span>
+  <span class="nx">plan</span><span class="o">:</span> <span class="s1">'premium'</span>
+<span class="p">};</span>
+
+<span class="nx">PersonSchema</span><span class="p">.</span><span class="nx">addDefaultsToTarget</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+
+<span class="nx">person</span><span class="p">;</span> <span class="c1">// {</span>
+             <span class="nx">first</span><span class="o">:</span> <span class="s1">'John'</span><span class="p">,</span>
+             <span class="nx">last</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+             <span class="nx">plan</span><span class="o">:</span> <span class="s1">'premium'</span>
+           <span class="p">}</span>
+
+<span class="nx">PersonSchema</span><span class="p">.</span><span class="nx">addDefaultsToTarget</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nx">person</span><span class="p">;</span> <span class="c1">// {</span>
+             <span class="nx">first</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+             <span class="nx">last</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+             <span class="nx">plan</span><span class="o">:</span> <span class="s1">'free'</span>
+           <span class="p">}</span>
+</pre></div>
+
+<h4>
+<a name="schemastripnonschemaattrstarget" class="anchor" href="#schemastripnonschemaattrstarget"><span class="octicon octicon-link"></span></a>Schema#stripNonSchemaAttrs(target)</h4>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">first</span><span class="o">:</span> <span class="s1">'John'</span><span class="p">,</span>
+  <span class="nx">plan</span><span class="o">:</span> <span class="s1">'premium'</span><span class="p">,</span>
+  <span class="nx">nonSchema</span><span class="o">:</span> <span class="s1">'value'</span>
+<span class="p">};</span>
+
+<span class="nx">PersonSchema</span><span class="p">.</span><span class="nx">stripNonSchemaAttrs</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+
+<span class="nx">person</span><span class="p">;</span> <span class="c1">// {</span>
+             <span class="nx">first</span><span class="o">:</span> <span class="s1">'John'</span><span class="p">,</span>
+             <span class="nx">plan</span><span class="o">:</span> <span class="s1">'premium'</span>
+           <span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p><a href="https://github.com/js-data/js-data-schema/blob/master/LICENSE">MIT License</a></p>
+
+<p>Copyright © 2013-2014 Jason Dobry</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/js-data">js-data</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
