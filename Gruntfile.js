@@ -109,6 +109,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
+    'build',
     'jshint:test',
     'mochaTest',
     'karma:dist'
