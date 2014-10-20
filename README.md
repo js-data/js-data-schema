@@ -2,6 +2,9 @@
 
 __Define and validate rules, datatypes and schemata in Node and in the browser.__
 
+## API Documentation
+[Schemator API](http://www.js-data.io/docs/js-data-schema)
+
 ## Install
 
 #### Node
