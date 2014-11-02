@@ -11,6 +11,8 @@ module.exports = function (grunt) {
     test: 'test'
   };
 
+  var pkg = grunt.file.readJSON('package.json');
+
   grunt.initConfig({
     config: config,
     pkg: grunt.file.readJSON('package.json'),
@@ -66,17 +68,6 @@ module.exports = function (grunt) {
       }
     },
 
-    groc: {
-      javascript: [
-        'dist/js-data-schema.js'
-      ],
-      options: {
-        'out': 'doc/',
-//        'index': 'doc.md',
-        'repository-url': 'https://github.com/js-data/js-data-schema'
-      }
-    },
-
     browserify: {
       dist: {
         options: {
@@ -110,13 +101,37 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('banner', function () {
+    var file = grunt.file.read('dist/js-data-schema.js');
+
+    var banner = '/**\n' +
+      '* @author Jason Dobry <jason.dobry@gmail.com>\n' +
+      '* @file js-data-schema.js\n' +
+      '* @version ' + pkg.version + ' - Homepage <http://www.js-data.io/docs/js-data-schema>\n' +
+      '* @copyright (c) 2014 Jason Dobry \n' +
+      '* @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>\n' +
+      '*\n' +
+      '* @overview Define and validate rules, datatypes and schemata in Node and in the browser.\n' +
+      '*/\n';
+
+    file = banner + file;
+
+    grunt.file.write('dist/js-data-schema.js', file);
+  });
+
   grunt.registerTask('test', [
     'build',
     'jshint:test',
     'mochaTest',
     'karma:dist'
   ]);
-  grunt.registerTask('build', ['clean', 'jshint:src', 'browserify', 'uglify']);
+  grunt.registerTask('build', [
+    'clean',
+    'jshint:src',
+    'browserify',
+    'banner',
+    'uglify'
+  ]);
   grunt.registerTask('go', ['build', 'watch']);
 
   grunt.registerTask('default', ['build']);
