@@ -1,4 +1,6 @@
-## js-data-schema
+<img src="https://raw.githubusercontent.com/js-data/js-data/master/js-data.png" alt="js-data logo" title="js-data" align="right" width="64" height="64" />
+
+## js-data-schema [![Bower version](https://badge.fury.io/bo/js-data-schema.png)](http://badge.fury.io/bo/js-data-schema) [![NPM version](https://badge.fury.io/js/js-data-schema.png)](http://badge.fury.io/js/js-data-schema)
 
 __Define and validate rules, datatypes and schemata in Node and in the browser.__
 
@@ -70,7 +72,7 @@ errors; // {
 ## License
 [MIT License](https://github.com/js-data/js-data-schema/blob/master/LICENSE)
 
-Copyright © 2013-2014 Jason Dobry
+Copyright © 2013-2015 Jason Dobry
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

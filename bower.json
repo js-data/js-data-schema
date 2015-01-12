@@ -2,13 +2,12 @@
   "author": "Jason Dobry",
   "name": "js-data-schema",
   "description": "Define and validate rules, datatypes and schemata in Node and in the browser.",
-  "version": "1.0.0-alpha.1",
   "homepage": "http://www.js-data.io/docs/js-data-schema",
   "repository": {
     "type": "git",
     "url": "https://github.com/js-data/js-data-schema.git"
   },
-  "main": "./dist/js-data-schema.min.js",
+  "main": "./dist/js-data-schema.js",
   "ignore": [
     ".idea/",
     "*.iml",
