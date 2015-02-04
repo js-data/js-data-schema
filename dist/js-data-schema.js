@@ -1,7 +1,7 @@
 /**
 * @author Jason Dobry <jason.dobry@gmail.com>
 * @file js-data-schema.js
-* @version 1.0.0-beta.1 - Homepage <http://www.js-data.io/docs/js-data-schema>
+* @version 1.0.0 - Homepage <http://www.js-data.io/docs/js-data-schema>
 * @copyright (c) 2014 Jason Dobry 
 * @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>
 *
@@ -957,7 +957,7 @@ var mixIn = require('../object/mixIn');
         var flags = '';
         flags += r.multiline ? 'm' : '';
         flags += r.global ? 'g' : '';
-        flags += r.ignorecase ? 'i' : '';
+        flags += r.ignoreCase ? 'i' : '';
         return new RegExp(r.source, flags);
     }
 
