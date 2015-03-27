@@ -1,3 +1,8 @@
+##### 1.1.1 - 27 March 2015
+
+###### Backwards compatible bug fixes
+- #9 - Custom defined rule is not called on multiple attributes - thanks to @gtarcea for the PR!
+
 ##### 1.1.0 - 27 March 2015
 
 ###### Other

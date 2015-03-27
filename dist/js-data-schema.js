@@ -1,6 +1,6 @@
 /*!
  * js-data-schema
- * @version 1.1.0 - Homepage <https://github.com/js-data/js-data-schema/>
+ * @version 1.1.1 - Homepage <https://github.com/js-data/js-data-schema/>
  * @author Jason Dobry <jason.dobry@gmail.com>
  * @copyright (c) 2013-2015 Jason Dobry 
  * @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>
@@ -595,7 +595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var rule = _this.parent.rules[ruleKey] || defaultRules[ruleKey];
 	      // Asynchronous rules get added to the queue
 	      if (rule.async) {
-	        ruleQueue[ruleKey] = (function (r, key, val, rVal) {
+	        ruleQueue[ruleKey + "_" + ruleValue] = (function (r, key, val, rVal) {
 	          return function (next) {
 	            r(val, rVal, function (err) {
 	              next(null, { err: err, key: key });
