@@ -1,4 +1,3 @@
-'use strict';
 module.exports = function (grunt) {
 
   require('jit-grunt')(grunt, {
@@ -11,7 +10,15 @@ module.exports = function (grunt) {
     test: 'test'
   };
 
+  var webpack = require('webpack');
   var pkg = grunt.file.readJSON('package.json');
+  var banner = 'js-data-schema\n' +
+    '@version ' + pkg.version + ' - Homepage <https://github.com/js-data/js-data-schema/>\n' +
+    '@author Jason Dobry <jason.dobry@gmail.com>\n' +
+    '@copyright (c) 2013-2015 Jason Dobry \n' +
+    '@license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>\n' +
+    '\n' +
+    '@overview Define and validate rules, datatypes and schemata in Node and in the browser.';
 
   grunt.initConfig({
     config: config,
@@ -43,15 +50,17 @@ module.exports = function (grunt) {
     uglify: {
       second: {
         options: {
-          banner: '/**\n' +
-            '* @author Jason Dobry <jason.dobry@gmail.com>\n' +
-            '* @file js-data-schema.min.js\n' +
-            '* @version <%= pkg.version %> - Homepage <https://github.com/js-data/js-data-schema/>\n' +
-            '* @copyright (c) 2013-2014 Jason Dobry <https://github.io/js-data/js-data-schema>\n' +
-            '* @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>\n' +
-            '*\n' +
-            '* @overview Define and validate rules, datatypes and schemata in Node and in the browser.\n' +
-            '*/\n'
+          sourceMap: true,
+          sourceMapName: 'dist/js-data-schema.min.map',
+          banner: '/*!\n' +
+          '* js-data-schema\n' +
+          '* @version <%= pkg.version %> - Homepage <https://github.com/js-data/js-data-schema/>\n' +
+          '* @author Jason Dobry <jason.dobry@gmail.com>\n' +
+          '* @copyright (c) 2013-2014 Jason Dobry <https://github.io/js-data/js-data-schema>\n' +
+          '* @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>\n' +
+          '*\n' +
+          '* @overview Define and validate rules, datatypes and schemata in Node and in the browser.\n' +
+          '*/\n'
         },
         files: {
           'dist/js-data-schema.min.js': ['dist/js-data-schema.js']
@@ -67,20 +76,31 @@ module.exports = function (grunt) {
         src: ['mocha.start.js', 'test/**/*.js']
       }
     },
-
-    browserify: {
+    webpack: {
       dist: {
-        options: {
-          browserifyOptions: {
-            standalone: 'Schemator'
-          }
+        entry: './lib/index.js',
+        output: {
+          filename: './dist/js-data-schema.js',
+          libraryTarget: 'umd',
+          library: 'Schemator'
         },
-        files: {
-          'dist/js-data-schema.js': ['lib/index.js']
-        }
+        module: {
+          loaders: [
+            { test: /(lib)(.+)\.js$/, exclude: /node_modules/, loader: 'babel-loader?blacklist=useStrict' }
+          ],
+          preLoaders: [
+            {
+              test: /(lib)(.+)\.js$|(test)(.+)\.js$/, // include .js files
+              exclude: /node_modules/, // exclude any and all files in the node_modules folder
+              loader: "jshint-loader?failOnHint=true"
+            }
+          ]
+        },
+        plugins: [
+          new webpack.BannerPlugin(banner)
+        ]
       }
     },
-
     karma: {
       options: {
         configFile: './karma.conf.js'
@@ -101,35 +121,14 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('banner', function () {
-    var file = grunt.file.read('dist/js-data-schema.js');
-
-    var banner = '/**\n' +
-      '* @author Jason Dobry <jason.dobry@gmail.com>\n' +
-      '* @file js-data-schema.js\n' +
-      '* @version ' + pkg.version + ' - Homepage <http://www.js-data.io/docs/js-data-schema>\n' +
-      '* @copyright (c) 2014 Jason Dobry \n' +
-      '* @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>\n' +
-      '*\n' +
-      '* @overview Define and validate rules, datatypes and schemata in Node and in the browser.\n' +
-      '*/\n';
-
-    file = banner + file;
-
-    grunt.file.write('dist/js-data-schema.js', file);
-  });
-
   grunt.registerTask('test', [
     'build',
-    'jshint:test',
     'mochaTest',
     'karma:dist'
   ]);
   grunt.registerTask('build', [
     'clean',
-    'jshint:src',
-    'browserify',
-    'banner',
+    'webpack',
     'uglify'
   ]);
   grunt.registerTask('go', ['build', 'watch']);

@@ -2,7 +2,7 @@ module.exports = function (config) {
   config.set({
     basePath: './',
     frameworks: ['mocha', 'chai', 'sinon'],
-    browsers: ['Firefox', 'PhantomJS'],
+    browsers: ['Firefox', 'PhantomJS', 'Chrome'],
     files: [
       'dist/js-data-schema.js',
       './karma.start.js',
