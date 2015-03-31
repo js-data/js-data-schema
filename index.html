@@ -1,138 +1,136 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta charset="UTF-8">
     <title>js-data-schema by js-data</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>js-data-schema</h1>
-        <p>Define and validate rules, datatypes and schemata in Node and in the browser.</p>
+    <section class="page-header">
+      <h1 class="project-name">js-data-schema</h1>
+      <h2 class="project-tagline">Define and validate rules, datatypes and schemata in Node and in the browser.</h2>
+      <a href="https://github.com/js-data/js-data-schema" class="btn">View on GitHub</a>
+      <a href="https://github.com/js-data/js-data-schema/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/js-data/js-data-schema/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-        <p class="view"><a href="https://github.com/js-data/js-data-schema">View the Project on GitHub <small>js-data/js-data-schema</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/js-data/js-data-schema/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/js-data/js-data-schema/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/js-data/js-data-schema">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <p><img src="https://raw.githubusercontent.com/js-data/js-data/master/js-data.png" alt="js-data logo" title="js-data" align="right" width="64" height="64"></p>
+    <section class="main-content">
+      <p><img src="https://raw.githubusercontent.com/js-data/js-data/master/js-data.png" alt="js-data logo" title="js-data" align="right" width="64" height="64"></p>
 
 <h2>
-<a id="js-data-schema--" class="anchor" href="#js-data-schema--" aria-hidden="true"><span class="octicon octicon-link"></span></a>js-data-schema <a href="http://badge.fury.io/bo/js-data-schema"><img src="https://badge.fury.io/bo/js-data-schema.png" alt="Bower version"></a> <a href="http://badge.fury.io/js/js-data-schema"><img src="https://badge.fury.io/js/js-data-schema.png" alt="NPM version"></a>
+<a id="js-data-schema-----" class="anchor" href="#js-data-schema-----" aria-hidden="true"><span class="octicon octicon-link"></span></a>js-data-schema <a href="https://www.npmjs.org/package/js-data-schema"><img src="https://img.shields.io/bower/v/js-data-schema.svg?style=flat-square" alt="bower version"></a> <a href="https://www.npmjs.org/package/js-data-schema"><img src="https://img.shields.io/npm/v/js-data-schema.svg?style=flat-square" alt="npm version"></a> <a href="https://circleci.com/gh/js-data/js-data-schema/tree/master"><img src="https://img.shields.io/circleci/project/js-data/js-data-schema/master.svg?style=flat-square" alt="Circle CI"></a> <a href="https://www.npmjs.org/package/js-data-schema"><img src="https://img.shields.io/npm/dm/js-data-schema.svg?style=flat-square" alt="npm downloads"></a> <a href="https://github.com/js-data/js-data-schema/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License"></a>
 </h2>
 
 <p><strong>Define and validate rules, datatypes and schemata in Node and in the browser.</strong></p>
 
-<h2>
-<a id="api-documentation" class="anchor" href="#api-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>API Documentation</h2>
+<h3>
+<a id="api-documentation" class="anchor" href="#api-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>API Documentation</h3>
 
 <p><a href="http://www.js-data.io/docs/js-data-schema">Schemator API</a></p>
 
-<h2>
-<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
+<h3>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h3>
 
-<h4>
-<a id="node" class="anchor" href="#node" aria-hidden="true"><span class="octicon octicon-link"></span></a>Node</h4>
+<h5>
+<a id="node" class="anchor" href="#node" aria-hidden="true"><span class="octicon octicon-link"></span></a>Node</h5>
 
 <p><code>npm install --save js-data-schema</code></p>
 
-<div class="highlight highlight-js"><pre><span class="pl-s">var</span> Schemator <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>js-data-schema<span class="pl-pds">'</span></span>);</pre></div>
+<div class="highlight highlight-js"><pre><span class="pl-k">var</span> Schemator <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>js-data-schema<span class="pl-pds">'</span></span>);</pre></div>
 
-<h4>
-<a id="browser" class="anchor" href="#browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser</h4>
+<h5>
+<a id="browser" class="anchor" href="#browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser</h5>
 
 <p><code>npm install --save js-data-schema</code> or <code>bower install --save js-data-schema</code></p>
 
 <p>Load <code>js-data-schema/dist/js-data-schema.js</code> into your browser.</p>
 
 <div class="highlight highlight-js"><pre><span class="pl-c">// global constructor if you're not using AMD or CommonJS</span>
-<span class="pl-s3">window</span>.Schemator;
+<span class="pl-c1">window</span>.Schemator;
 
 <span class="pl-c">// AMD</span>
-define([<span class="pl-s1"><span class="pl-pds">'</span>js-data-schema<span class="pl-pds">'</span></span>], <span class="pl-st">function</span> (<span class="pl-vpf">Schemator</span>) { ... })
+define([<span class="pl-s"><span class="pl-pds">'</span>js-data-schema<span class="pl-pds">'</span></span>], <span class="pl-k">function</span> (<span class="pl-smi">Schemator</span>) { ... })
 
 <span class="pl-c">// CommonJS</span>
-<span class="pl-s">var</span> Schemator <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>js-data-schema<span class="pl-pds">'</span></span>);</pre></div>
+<span class="pl-k">var</span> Schemator <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>js-data-schema<span class="pl-pds">'</span></span>);</pre></div>
 
-<h2>
-<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+<h3>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h3>
 
-<div class="highlight highlight-js"><pre><span class="pl-s">var</span> schemator <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Schemator</span>();
+<div class="highlight highlight-js"><pre><span class="pl-k">var</span> schemator <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Schemator</span>();
 
-schemator.defineSchema(<span class="pl-s1"><span class="pl-pds">'</span>Person<span class="pl-pds">'</span></span>, {
-  name<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>string<span class="pl-pds">'</span></span>
+schemator.defineSchema(<span class="pl-s"><span class="pl-pds">'</span>Person<span class="pl-pds">'</span></span>, {
+  name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>string<span class="pl-pds">'</span></span>
 });
 
-<span class="pl-s">var</span> errors <span class="pl-k">=</span> schemator.validateSync(<span class="pl-s1"><span class="pl-pds">'</span>Person<span class="pl-pds">'</span></span>, { name<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>John<span class="pl-pds">'</span></span> });
+<span class="pl-k">var</span> errors <span class="pl-k">=</span> schemator.validateSync(<span class="pl-s"><span class="pl-pds">'</span>Person<span class="pl-pds">'</span></span>, { name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>John<span class="pl-pds">'</span></span> });
 
 errors; <span class="pl-c">// null</span>
 
-errors <span class="pl-k">=</span> schemator.validateSync(<span class="pl-s1"><span class="pl-pds">'</span>Person<span class="pl-pds">'</span></span>, { name<span class="pl-k">:</span> <span class="pl-c1">50043</span> });
+errors <span class="pl-k">=</span> schemator.validateSync(<span class="pl-s"><span class="pl-pds">'</span>Person<span class="pl-pds">'</span></span>, { name<span class="pl-k">:</span> <span class="pl-c1">50043</span> });
 
 errors; <span class="pl-c">// {</span>
-              rule<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>type<span class="pl-pds">'</span></span>,
-              actual<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>number<span class="pl-pds">'</span></span>,
-              expected<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>string<span class="pl-pds">'</span></span>
-            }</pre></div>
+        <span class="pl-c">//   name: [{</span>
+        <span class="pl-c">//     rule: 'type',</span>
+        <span class="pl-c">//     actual: 'number',</span>
+        <span class="pl-c">//     expected: 'string'</span>
+        <span class="pl-c">//   }]</span>
+        <span class="pl-c">// }</span></pre></div>
 
-<h2>
-<a id="status" class="anchor" href="#status" aria-hidden="true"><span class="octicon octicon-link"></span></a>Status</h2>
+<h3>
+<a id="project-status" class="anchor" href="#project-status" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Status</h3>
 
-<table>
-<thead>
-<tr>
-<th>Branch</th>
-<th>Master</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bower</td>
-<td><a href="http://badge.fury.io/bo/js-data-schema"><img src="https://badge.fury.io/bo/js-data-schema.png" alt="Bower version"></a></td>
-</tr>
-<tr>
-<td>NPM</td>
-<td><a href="http://badge.fury.io/js/js-data-schema"><img src="https://badge.fury.io/js/js-data-schema.png" alt="NPM version"></a></td>
-</tr>
-<tr>
-<td>Build Status</td>
-<td><a href="https://travis-ci.org/js-data/js-data-schema"><img src="https://travis-ci.org/js-data/js-data-schema.png?branch=master" alt="Build Status"></a></td>
-</tr>
-<tr>
-<td>Code Climate</td>
-<td><a href="https://codeclimate.com/github/js-data/js-data-schema"><img src="https://codeclimate.com/github/js-data/js-data-schema.png" alt="Code Climate"></a></td>
-</tr>
-<tr>
-<td>Dependency Status</td>
-<td><a href="https://gemnasium.com/js-data/js-data-schema"><img src="https://gemnasium.com/js-data/js-data-schema.png" alt="Dependency Status"></a></td>
-</tr>
-<tr>
-<td>Coverage</td>
-<td><a href="https://coveralls.io/r/js-data/js-data-schema?branch=master"><img src="https://coveralls.io/repos/js-data/js-data-schema/badge.png?branch=master" alt="Coverage Status"></a></td>
-</tr>
-</tbody>
-</table>
+<p><strong>Latest Release:</strong> <a href="https://github.com/js-data/js-data-schema/releases"><img src="https://img.shields.io/github/release/js-data/js-data-schema.svg?style=flat-square" alt="Latest Release"></a></p>
 
-<h2>
-<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h2>
+<p><strong>Status:</strong></p>
+
+<p><a href="https://gemnasium.com/js-data/js-data-schema"><img src="https://img.shields.io/gemnasium/js-data/js-data-schema.svg?style=flat-square" alt="Dependency Status"></a> <a href="https://coveralls.io/r/js-data/js-data-schema?branch=master"><img src="https://img.shields.io/coveralls/js-data/js-data-schema/master.svg?style=flat-square" alt="Coverage Status"></a> <a href="https://www.codacy.com/public/jasondobry/js-data-schema/dashboard"><img src="https://img.shields.io/codacy/e35036d4d2ea4c618a5711f3dd4ba659.svg?style=flat-square" alt="Codacity"></a></p>
+
+<p><strong>Supported Platforms:</strong></p>
+
+<p><a href="https://github.com/js-data/js-data"><img src="https://img.shields.io/badge/Browser-Chrome%2CFirefox%2CSafari%2COpera%2CIE%209%2B%2CiOS%20Safari%207.1%2B%2CAndroid%20Browser%202.3%2B-green.svg?style=flat-square" alt="browsers"></a></p>
+
+<h3>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h3>
 
 <p><a href="http://www.js-data.io/docs/js-data-schema">js-data-schema api</a></p>
 
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+<h3>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h3>
+
+<p>First, support is handled via the <a href="https://groups.io/org/groupsio/jsdata">Mailing List</a>. Ask your questions there.</p>
+
+<p>When submitting issues on GitHub, please include as much detail as possible to make debugging quick and easy.</p>
+
+<ul>
+<li>good - Your versions of js-data, js-data-schema, etc, relevant console logs/error, code examples that revealed the issue</li>
+<li>better - A <a href="http://plnkr.co/">plnkr</a>, <a href="http://jsfiddle.net/">fiddle</a>, or <a href="http://jsbin.com/?html,output">bin</a> that demonstrates the issue</li>
+<li>best - A Pull Request that fixes the issue, including test coverage for the issue and the fix</li>
+</ul>
+
+<p><a href="https://github.com/js-data/js-data-schema/issues">Github Issues</a>.</p>
+
+<h4>
+<a id="pull-requests" class="anchor" href="#pull-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pull Requests</h4>
+
+<ol>
+<li>Contribute to the issue that is the reason you'll be developing in the first place</li>
+<li>Fork js-data-schema</li>
+<li><code>git clone https://github.com/&lt;you&gt;/js-data-schema.git</code></li>
+<li><code>cd js-data-schema; npm install; bower install;</code></li>
+<li>
+<code>grunt go</code> (builds and starts a watch)</li>
+<li>(in another terminal) <code>grunt karma:dev</code> (runs the tests)</li>
+<li>Write your code, including relevant documentation and tests</li>
+<li>Submit a PR and we'll review</li>
+</ol>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
 
 <p><a href="https://github.com/js-data/js-data-schema/blob/master/LICENSE">MIT License</a></p>
 
@@ -154,13 +152,16 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/js-data">js-data</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/js-data/js-data-schema">js-data-schema</a> is maintained by <a href="https://github.com/js-data">js-data</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+
+    </section>
+
+  
   </body>
 </html>
+
