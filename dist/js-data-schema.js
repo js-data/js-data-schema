@@ -1,6 +1,6 @@
 /*!
  * js-data-schema
- * @version 1.1.1 - Homepage <https://github.com/js-data/js-data-schema/>
+ * @version 1.2.0 - Homepage <https://github.com/js-data/js-data-schema/>
  * @author Jason Dobry <jason.dobry@gmail.com>
  * @copyright (c) 2013-2015 Jason Dobry 
  * @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>
@@ -498,20 +498,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _executeRulesSync(targetKey, options, errors, value, key) {
 	  var _this = this;
+
 	  var nestedKey = targetKey + (targetKey.length ? "." : "") + key;
 
 	  if (utils.isObject(value)) {
-	    var err = _validateSync.apply(_this, [nestedKey, value, options]);
+	    var err = _validateSync.apply(this, [nestedKey, value, options]);
 	    if (err) {
 	      errors[key] = err;
 	    }
 	  } else {
-	    var schemaRules = utils.get(_this.schema, nestedKey);
+	    var schemaRules = utils.get(this.schema, nestedKey);
 	    if (!utils.isObject(schemaRules)) {
 	      return;
 	    } else if (schemaRules.nullable === true) {
 	      var nullable = this.parent.rules.nullable || defaultRules.nullable;
-	      var nErr = nullable(value, true);
+	      var nErr = nullable.call(options.ctx, value, true);
 
 	      if (nErr === null) {
 	        return;
@@ -520,7 +521,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    utils.forOwn(schemaRules, function (ruleValue, ruleKey) {
 	      var rule = _this.parent.rules[ruleKey] || defaultRules[ruleKey];
 	      if (!rule.async) {
-	        var err = rule(value, ruleValue);
+	        var err = rule.call(options.ctx, value, ruleValue);
 	        if (err) {
 	          if (!errors[key]) {
 	            errors[key] = {
@@ -538,8 +539,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @see Schema#validateSync
 	 */
 	function _validateSync(targetKey, attrs, options) {
-	  var errors = {};
 	  var _this = this;
+
+	  var errors = {};
 
 	  try {
 	    // Validate present attributes
@@ -548,7 +550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	    // Validate missing attributes
 	    if (!options.ignoreMissing) {
-	      var schema = targetKey ? utils.get(_this.schema, targetKey) || {} : _this.schema;
+	      var schema = targetKey ? utils.get(this.schema, targetKey) || {} : this.schema;
 	      var missing = utils.difference(utils.keys(schema), utils.keys(attrs));
 	      missing = utils.pick(this.schema, missing);
 	      missing = utils.map(missing, function () {
@@ -570,6 +572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _executeRules(options, value, key, prefix, errors, deepQueue, ruleQueue) {
 	  var _this = this;
+
 	  var nestedKey = prefix + key;
 
 	  if (utils.isObject(value)) {
@@ -580,12 +583,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	    })(nestedKey, value);
 	  } else {
-	    var schemaRules = utils.get(_this.schema, nestedKey);
+	    var schemaRules = utils.get(this.schema, nestedKey);
 	    if (!utils.isObject(schemaRules)) {
 	      return;
 	    } else if (schemaRules.nullable === true) {
-	      var nullable = this.parent.rules.nullable || defaultRules.nullable,
-	          nErr = nullable(value, true);
+	      var nullable = this.parent.rules.nullable || defaultRules.nullable;
+	      var nErr = nullable.call(options.ctx, value, true);
 
 	      if (nErr === null) {
 	        return;
@@ -595,16 +598,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var rule = _this.parent.rules[ruleKey] || defaultRules[ruleKey];
 	      // Asynchronous rules get added to the queue
 	      if (rule.async) {
-	        ruleQueue[ruleKey + "_" + ruleValue] = (function (r, key, val, rVal) {
+	        ruleQueue["" + ruleKey + "_" + ruleValue] = (function (r, key, val, rVal) {
 	          return function (next) {
-	            r(val, rVal, function (err) {
+	            r.call(options.ctx, val, rVal, function (err) {
 	              next(null, { err: err, key: key });
 	            });
 	          };
 	        })(rule, key, value, ruleValue);
 	      } else {
 	        // Get results of synchronous rules immediately
-	        var err = rule(value, ruleValue);
+	        var err = rule.call(options.ctx, value, ruleValue);
 	        if (err) {
 	          if (!errors[key]) {
 	            errors[key] = {
@@ -622,8 +625,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @see Schema#validate
 	 */
 	function _validate(targetKey, attrs, options, cb) {
-	  var errors = {};
 	  var _this = this;
+
+	  var errors = {};
 	  var prefix = targetKey + (targetKey.length ? "." : "");
 	  var deepQueue = {};
 	  var ruleQueue = {};
@@ -637,7 +641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // Validate missing attributes
 	  if (!options.ignoreMissing) {
-	    var schema = targetKey ? utils.get(_this.schema, targetKey) || {} : _this.schema;
+	    var schema = targetKey ? utils.get(this.schema, targetKey) || {} : this.schema;
 	    var missing = utils.difference(utils.keys(schema), utils.keys(attrs));
 
 	    missing = utils.pick(this.schema, missing);
@@ -726,6 +730,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 
+	var errors = {
+	  a: "Schema#validateSync(attrs[, options]): ",
+	  b: "Schema#validate(attrs[, options], cb): "
+	};
+
 	var Schema = (function () {
 	  function Schema(name, schema, parent) {
 	    _classCallCheck(this, Schema);
@@ -745,11 +754,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      value: function validateSync(attrs, options) {
 	        options = options ? options === true ? { ignoreMissing: true } : options : {};
 	        if (!utils.isObject(attrs)) {
-	          throw new Error("Schema#validateSync(attrs[, options]): attrs: Must be an object!");
+	          throw new Error("" + errors.a + "attrs: Must be an object!");
 	        } else if (!utils.isObject(options)) {
-	          throw new Error("Schema#validateSync(attrs[, options]): options: Must be an object!");
+	          throw new Error("" + errors.a + "options: Must be an object!");
 	        }
-	        return _validateSync.apply(this, ["", attrs, options]);
+	        options.ctx = attrs;
+	        return _validateSync.call(this, "", attrs, options);
 	      }
 	    },
 	    validate: {
@@ -760,14 +770,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          options = {};
 	        }
 	        if (!utils.isFunction(cb)) {
-	          throw new Error("Schema#validate(attrs[, options], cb): cb: Must be a function!");
+	          throw new Error("" + errors.b + "cb: Must be a function!");
 	        } else if (!utils.isObject(attrs)) {
-	          return cb(new Error("Schema#validate(attrs[, options], cb): attrs: Must be an object!"));
+	          return cb(new Error("" + errors.b + "attrs: Must be an object!"));
 	        } else if (!utils.isObject(options)) {
-	          return cb(new Error("Schema#validate(attrs[, options], cb): options: Must be an object!"));
+	          return cb(new Error("" + errors.b + "options: Must be an object!"));
 	        }
 	        options.first = true;
-	        _validate.apply(this, ["", attrs, options, cb]);
+	        options.ctx = attrs;
+	        _validate.call(this, "", attrs, options, cb);
 	      }
 	    },
 	    addDefaultsToTarget: {

@@ -1,3 +1,8 @@
+##### 1.2.0 - 31 March 2015
+
+###### Backwards compatible API changes
+- #5 - feature: supporting "composite rules"
+
 ##### 1.1.1 - 27 March 2015
 
 ###### Backwards compatible bug fixes
