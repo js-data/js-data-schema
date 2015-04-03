@@ -1,3 +1,8 @@
+##### 1.2.1 - 03 April 2015
+
+###### Backwards compatible bug fixes
+- #12 - Custom dataType Not Working
+
 ##### 1.2.0 - 31 March 2015
 
 ###### Backwards compatible API changes

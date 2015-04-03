@@ -371,6 +371,29 @@ describe('Schema', function () {
       });
     });
 
+    it('should work with custom data types', function () {
+      schemator.defineDataType('foo', function (x) {
+        if (typeof x !== 'number') {
+          return 'arg!';
+        }
+        return null
+      });
+      var schema = schemator.defineSchema('test', {
+        shouldFail: {
+          type: 'foo'
+        }
+      });
+
+      var errors = schema.validateSync({
+        shouldFail: 'isastring'
+      });
+      assert.deepEqual({
+        shouldFail: {
+          errors: ['arg!']
+        }
+      }, errors);
+    });
+
     it('should execute applicable validation rules', function (done) {
       var schema = schemator.defineSchema('test', {
         shouldFail: {
