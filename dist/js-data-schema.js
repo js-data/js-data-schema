@@ -1,6 +1,6 @@
 /*!
  * js-data-schema
- * @version 1.2.2 - Homepage <https://github.com/js-data/js-data-schema/>
+ * @version 1.2.3 - Homepage <https://github.com/js-data/js-data-schema/>
  * @author Jason Dobry <jason.dobry@gmail.com>
  * @copyright (c) 2013-2015 Jason Dobry 
  * @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>
@@ -514,7 +514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var schemaRules = utils.get(this.schema, nestedKey);
 
 	  if (utils.isObject(value) || hasObject(schemaRules)) {
-	    var err = _validateSync.apply(this, [nestedKey, value, options]);
+	    var err = _validateSync.apply(this, [nestedKey, value || {}, options]);
 	    if (err) {
 	      errors[key] = err;
 	    }
@@ -591,7 +591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Recurse down into nested attributes
 	    deepQueue[key] = (function (nK, val) {
 	      return function (next) {
-	        _validate.apply(_this, [nK, val, options, next]);
+	        _validate.apply(_this, [nK, val || {}, options, next]);
 	      };
 	    })(nestedKey, value);
 	  } else {
@@ -1339,7 +1339,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var indexOf = __webpack_require__(40);
+	var indexOf = __webpack_require__(42);
 
 	    /**
 	     * If array contains values.
@@ -1356,8 +1356,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var unique = __webpack_require__(29);
-	var filter = __webpack_require__(41);
-	var every = __webpack_require__(42);
+	var filter = __webpack_require__(40);
+	var every = __webpack_require__(41);
 	var contains = __webpack_require__(26);
 	var slice = __webpack_require__(36);
 
@@ -1386,7 +1386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var unique = __webpack_require__(29);
-	var filter = __webpack_require__(41);
+	var filter = __webpack_require__(40);
 	var some = __webpack_require__(43);
 	var contains = __webpack_require__(26);
 	var slice = __webpack_require__(36);
@@ -1414,7 +1414,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var filter = __webpack_require__(41);
+	var filter = __webpack_require__(40);
 
 	    /**
 	     * @return {array} Array of unique items
@@ -1670,9 +1670,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(45);
-	var prop = __webpack_require__(46);
-	var deepMatches = __webpack_require__(47);
+	var identity = __webpack_require__(46);
+	var prop = __webpack_require__(47);
+	var deepMatches = __webpack_require__(48);
 
 	    /**
 	     * Converts argument into a valid iterator.
@@ -1710,7 +1710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var clone = __webpack_require__(48);
+	var clone = __webpack_require__(45);
 	var forOwn = __webpack_require__(19);
 	var kindOf = __webpack_require__(44);
 	var isPlainObject = __webpack_require__(33);
@@ -1785,40 +1785,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-
-	    /**
-	     * Array.indexOf
-	     */
-	    function indexOf(arr, item, fromIndex) {
-	        fromIndex = fromIndex || 0;
-	        if (arr == null) {
-	            return -1;
-	        }
-
-	        var len = arr.length,
-	            i = fromIndex < 0 ? len + fromIndex : fromIndex;
-	        while (i < len) {
-	            // we iterate over sparse items since there is no way to make it
-	            // work properly on IE 7-8. see #64
-	            if (arr[i] === item) {
-	                return i;
-	            }
-
-	            i++;
-	        }
-
-	        return -1;
-	    }
-
-	    module.exports = indexOf;
-
-
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var makeIterator = __webpack_require__(37);
 
 	    /**
@@ -1848,7 +1814,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 42 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var makeIterator = __webpack_require__(37);
@@ -1877,6 +1843,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    module.exports = every;
+
+
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+
+	    /**
+	     * Array.indexOf
+	     */
+	    function indexOf(arr, item, fromIndex) {
+	        fromIndex = fromIndex || 0;
+	        if (arr == null) {
+	            return -1;
+	        }
+
+	        var len = arr.length,
+	            i = fromIndex < 0 ? len + fromIndex : fromIndex;
+	        while (i < len) {
+	            // we iterate over sparse items since there is no way to make it
+	            // work properly on IE 7-8. see #64
+	            if (arr[i] === item) {
+	                return i;
+	            }
+
+	            i++;
+	        }
+
+	        return -1;
+	    }
+
+	    module.exports = indexOf;
 
 
 
@@ -1943,6 +1943,61 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var kindOf = __webpack_require__(44);
+	var isPlainObject = __webpack_require__(33);
+	var mixIn = __webpack_require__(49);
+
+	    /**
+	     * Clone native types.
+	     */
+	    function clone(val){
+	        switch (kindOf(val)) {
+	            case 'Object':
+	                return cloneObject(val);
+	            case 'Array':
+	                return cloneArray(val);
+	            case 'RegExp':
+	                return cloneRegExp(val);
+	            case 'Date':
+	                return cloneDate(val);
+	            default:
+	                return val;
+	        }
+	    }
+
+	    function cloneObject(source) {
+	        if (isPlainObject(source)) {
+	            return mixIn({}, source);
+	        } else {
+	            return source;
+	        }
+	    }
+
+	    function cloneRegExp(r) {
+	        var flags = '';
+	        flags += r.multiline ? 'm' : '';
+	        flags += r.global ? 'g' : '';
+	        flags += r.ignoreCase ? 'i' : '';
+	        return new RegExp(r.source, flags);
+	    }
+
+	    function cloneDate(date) {
+	        return new Date(+date);
+	    }
+
+	    function cloneArray(arr) {
+	        return arr.slice();
+	    }
+
+	    module.exports = clone;
+
+
+
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
 	
 
 	    /**
@@ -1958,7 +2013,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -1978,7 +2033,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var forOwn = __webpack_require__(19);
@@ -2034,61 +2089,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    module.exports = deepMatches;
-
-
-
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var kindOf = __webpack_require__(44);
-	var isPlainObject = __webpack_require__(33);
-	var mixIn = __webpack_require__(49);
-
-	    /**
-	     * Clone native types.
-	     */
-	    function clone(val){
-	        switch (kindOf(val)) {
-	            case 'Object':
-	                return cloneObject(val);
-	            case 'Array':
-	                return cloneArray(val);
-	            case 'RegExp':
-	                return cloneRegExp(val);
-	            case 'Date':
-	                return cloneDate(val);
-	            default:
-	                return val;
-	        }
-	    }
-
-	    function cloneObject(source) {
-	        if (isPlainObject(source)) {
-	            return mixIn({}, source);
-	        } else {
-	            return source;
-	        }
-	    }
-
-	    function cloneRegExp(r) {
-	        var flags = '';
-	        flags += r.multiline ? 'm' : '';
-	        flags += r.global ? 'g' : '';
-	        flags += r.ignoreCase ? 'i' : '';
-	        return new RegExp(r.source, flags);
-	    }
-
-	    function cloneDate(date) {
-	        return new Date(+date);
-	    }
-
-	    function cloneArray(arr) {
-	        return arr.slice();
-	    }
-
-	    module.exports = clone;
 
 
 

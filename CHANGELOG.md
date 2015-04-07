@@ -1,3 +1,8 @@
+##### 1.2.3 - 07 April 2015
+
+###### Backwards compatible bug fixes
+- One tiny piece missing from the fix for #14
+
 ##### 1.2.2 - 07 April 2015
 
 ###### Backwards compatible bug fixes
