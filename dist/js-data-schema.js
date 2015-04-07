@@ -1,6 +1,6 @@
 /*!
  * js-data-schema
- * @version 1.2.1 - Homepage <https://github.com/js-data/js-data-schema/>
+ * @version 1.2.2 - Homepage <https://github.com/js-data/js-data-schema/>
  * @author Jason Dobry <jason.dobry@gmail.com>
  * @copyright (c) 2013-2015 Jason Dobry 
  * @license MIT <https://github.com/js-data/js-data-schema/blob/master/LICENSE>
@@ -496,18 +496,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var defaultRules = _interopRequire(__webpack_require__(3));
 
+	var hasObject = function (v) {
+	  var has = false;
+	  utils.forOwn(v, function (_v) {
+	    if (utils.isObject(_v)) {
+	      has = true;
+	      return false;
+	    }
+	  });
+	  return has;
+	};
+
 	function _executeRulesSync(targetKey, options, errors, value, key) {
 	  var _this = this;
 
 	  var nestedKey = targetKey + (targetKey.length ? "." : "") + key;
+	  var schemaRules = utils.get(this.schema, nestedKey);
 
-	  if (utils.isObject(value)) {
+	  if (utils.isObject(value) || hasObject(schemaRules)) {
 	    var err = _validateSync.apply(this, [nestedKey, value, options]);
 	    if (err) {
 	      errors[key] = err;
 	    }
 	  } else {
-	    var schemaRules = utils.get(this.schema, nestedKey);
 	    if (!utils.isObject(schemaRules)) {
 	      return;
 	    } else if (schemaRules.nullable === true) {
@@ -574,8 +585,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _this = this;
 
 	  var nestedKey = prefix + key;
+	  var schemaRules = utils.get(this.schema, nestedKey);
 
-	  if (utils.isObject(value)) {
+	  if (utils.isObject(value) || hasObject(schemaRules)) {
 	    // Recurse down into nested attributes
 	    deepQueue[key] = (function (nK, val) {
 	      return function (next) {
@@ -583,7 +595,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	    })(nestedKey, value);
 	  } else {
-	    var schemaRules = utils.get(this.schema, nestedKey);
 	    if (!utils.isObject(schemaRules)) {
 	      return;
 	    } else if (schemaRules.nullable === true) {
@@ -1179,7 +1190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var slice = __webpack_require__(37);
+	var slice = __webpack_require__(36);
 
 	    /**
 	     * Return a copy of the object, filtered to only have values for the whitelisted keys.
@@ -1204,7 +1215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var forOwn = __webpack_require__(19);
-	var makeIterator = __webpack_require__(36);
+	var makeIterator = __webpack_require__(37);
 
 	    /**
 	     * Creates a new object with all the properties where the callback returns
@@ -1230,7 +1241,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var forOwn = __webpack_require__(19);
-	var makeIterator = __webpack_require__(36);
+	var makeIterator = __webpack_require__(37);
 
 	    /**
 	     * Creates a new object where all the values are the result of calling
@@ -1299,7 +1310,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var has = __webpack_require__(40);
+	var has = __webpack_require__(39);
 
 	    /**
 	     * Unset object property.
@@ -1328,7 +1339,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var indexOf = __webpack_require__(39);
+	var indexOf = __webpack_require__(40);
 
 	    /**
 	     * If array contains values.
@@ -1346,9 +1357,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var unique = __webpack_require__(29);
 	var filter = __webpack_require__(41);
-	var every = __webpack_require__(43);
+	var every = __webpack_require__(42);
 	var contains = __webpack_require__(26);
-	var slice = __webpack_require__(37);
+	var slice = __webpack_require__(36);
 
 
 	    /**
@@ -1376,9 +1387,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var unique = __webpack_require__(29);
 	var filter = __webpack_require__(41);
-	var some = __webpack_require__(42);
+	var some = __webpack_require__(43);
 	var contains = __webpack_require__(26);
-	var slice = __webpack_require__(37);
+	var slice = __webpack_require__(36);
 
 
 	    /**
@@ -1457,7 +1468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var kindOf = __webpack_require__(48);
+	var kindOf = __webpack_require__(44);
 	    /**
 	     * Check if value is from a specific "kind".
 	     */
@@ -1618,46 +1629,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(44);
-	var prop = __webpack_require__(45);
-	var deepMatches = __webpack_require__(46);
-
-	    /**
-	     * Converts argument into a valid iterator.
-	     * Used internally on most array/object/collection methods that receives a
-	     * callback/iterator providing a shortcut syntax.
-	     */
-	    function makeIterator(src, thisObj){
-	        if (src == null) {
-	            return identity;
-	        }
-	        switch(typeof src) {
-	            case 'function':
-	                // function is the first to improve perf (most common case)
-	                // also avoid using `Function#call` if not needed, which boosts
-	                // perf a lot in some cases
-	                return (typeof thisObj !== 'undefined')? function(val, i, arr){
-	                    return src.call(thisObj, val, i, arr);
-	                } : src;
-	            case 'object':
-	                return function(val){
-	                    return deepMatches(val, src);
-	                };
-	            case 'string':
-	            case 'number':
-	                return prop(src);
-	        }
-	    }
-
-	    module.exports = makeIterator;
-
-
-
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
 	
 
 	    /**
@@ -1696,12 +1667,52 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var identity = __webpack_require__(45);
+	var prop = __webpack_require__(46);
+	var deepMatches = __webpack_require__(47);
+
+	    /**
+	     * Converts argument into a valid iterator.
+	     * Used internally on most array/object/collection methods that receives a
+	     * callback/iterator providing a shortcut syntax.
+	     */
+	    function makeIterator(src, thisObj){
+	        if (src == null) {
+	            return identity;
+	        }
+	        switch(typeof src) {
+	            case 'function':
+	                // function is the first to improve perf (most common case)
+	                // also avoid using `Function#call` if not needed, which boosts
+	                // perf a lot in some cases
+	                return (typeof thisObj !== 'undefined')? function(val, i, arr){
+	                    return src.call(thisObj, val, i, arr);
+	                } : src;
+	            case 'object':
+	                return function(val){
+	                    return deepMatches(val, src);
+	                };
+	            case 'string':
+	            case 'number':
+	                return prop(src);
+	        }
+	    }
+
+	    module.exports = makeIterator;
+
+
+
+
+/***/ },
 /* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var clone = __webpack_require__(47);
+	var clone = __webpack_require__(48);
 	var forOwn = __webpack_require__(19);
-	var kindOf = __webpack_require__(48);
+	var kindOf = __webpack_require__(44);
 	var isPlainObject = __webpack_require__(33);
 
 	    /**
@@ -1753,6 +1764,27 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var get = __webpack_require__(16);
+
+	    var UNDEF;
+
+	    /**
+	     * Check if object has nested property.
+	     */
+	    function has(obj, prop){
+	        return get(obj, prop) !== UNDEF;
+	    }
+
+	    module.exports = has;
+
+
+
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
 	
 
 	    /**
@@ -1784,31 +1816,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = __webpack_require__(16);
-
-	    var UNDEF;
-
-	    /**
-	     * Check if object has nested property.
-	     */
-	    function has(obj, prop){
-	        return get(obj, prop) !== UNDEF;
-	    }
-
-	    module.exports = has;
-
-
-
-
-
-/***/ },
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var makeIterator = __webpack_require__(36);
+	var makeIterator = __webpack_require__(37);
 
 	    /**
 	     * Array filter
@@ -1840,40 +1851,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var makeIterator = __webpack_require__(36);
-
-	    /**
-	     * Array some
-	     */
-	    function some(arr, callback, thisObj) {
-	        callback = makeIterator(callback, thisObj);
-	        var result = false;
-	        if (arr == null) {
-	            return result;
-	        }
-
-	        var i = -1, len = arr.length;
-	        while (++i < len) {
-	            // we iterate over sparse items since there is no way to make it
-	            // work properly on IE 7-8. see #64
-	            if ( callback(arr[i], i, arr) ) {
-	                result = true;
-	                break;
-	            }
-	        }
-
-	        return result;
-	    }
-
-	    module.exports = some;
-
-
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var makeIterator = __webpack_require__(36);
+	var makeIterator = __webpack_require__(37);
 
 	    /**
 	     * Array every
@@ -1903,7 +1881,66 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var makeIterator = __webpack_require__(37);
+
+	    /**
+	     * Array some
+	     */
+	    function some(arr, callback, thisObj) {
+	        callback = makeIterator(callback, thisObj);
+	        var result = false;
+	        if (arr == null) {
+	            return result;
+	        }
+
+	        var i = -1, len = arr.length;
+	        while (++i < len) {
+	            // we iterate over sparse items since there is no way to make it
+	            // work properly on IE 7-8. see #64
+	            if ( callback(arr[i], i, arr) ) {
+	                result = true;
+	                break;
+	            }
+	        }
+
+	        return result;
+	    }
+
+	    module.exports = some;
+
+
+
+/***/ },
 /* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+
+	    var _rKind = /^\[object (.*)\]$/,
+	        _toString = Object.prototype.toString,
+	        UNDEF;
+
+	    /**
+	     * Gets the "kind" of value. (e.g. "String", "Number", etc)
+	     */
+	    function kindOf(val) {
+	        if (val === null) {
+	            return 'Null';
+	        } else if (val === UNDEF) {
+	            return 'Undefined';
+	        } else {
+	            return _rKind.exec( _toString.call(val) )[1];
+	        }
+	    }
+	    module.exports = kindOf;
+
+
+
+/***/ },
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -1921,7 +1958,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -1941,7 +1978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var forOwn = __webpack_require__(19);
@@ -2002,10 +2039,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var kindOf = __webpack_require__(48);
+	var kindOf = __webpack_require__(44);
 	var isPlainObject = __webpack_require__(33);
 	var mixIn = __webpack_require__(49);
 
@@ -2053,32 +2090,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    module.exports = clone;
 
-
-
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-
-	    var _rKind = /^\[object (.*)\]$/,
-	        _toString = Object.prototype.toString,
-	        UNDEF;
-
-	    /**
-	     * Gets the "kind" of value. (e.g. "String", "Number", etc)
-	     */
-	    function kindOf(val) {
-	        if (val === null) {
-	            return 'Null';
-	        } else if (val === UNDEF) {
-	            return 'Undefined';
-	        } else {
-	            return _rKind.exec( _toString.call(val) )[1];
-	        }
-	    }
-	    module.exports = kindOf;
 
 
 

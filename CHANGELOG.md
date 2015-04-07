@@ -1,3 +1,9 @@
+##### 1.2.2 - 07 April 2015
+
+###### Backwards compatible bug fixes
+- #13 - Check for instance wherel rule is undefined - thanks to @facultymatt for the PR!
+- #14 - Errors are not properly collected for nested properties
+
 ##### 1.2.1 - 03 April 2015
 
 ###### Backwards compatible bug fixes
