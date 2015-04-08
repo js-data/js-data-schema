@@ -183,7 +183,7 @@ describe('Schema', function () {
       }, true);
 
       var schema = schemator.defineSchema('test', {
-        shouldFail: {
+        asyncString: {
           asyncString: true,
           asyncMaxLength: 2
         },
@@ -195,39 +195,43 @@ describe('Schema', function () {
       });
 
       schema.validate({
-        shouldFail: ['shouldbestring', 'andistoolong', 3],
+        asyncString: ['shouldbestring', 'andistoolong', 3],
         nested: {
           shouldFail: 'shouldbeanumber'
         }
       }, function (errors) {
-        assert.deepEqual(errors, {
-          nested: {
-            shouldFail: {
+        try {
+          assert.deepEqual(errors, {
+            nested: {
+              shouldFail: {
+                errors: [
+                  {
+                    rule: 'asyncNumber',
+                    actual: 'string',
+                    expected: 'number'
+                  }
+                ]
+              }
+            },
+            asyncString: {
               errors: [
                 {
-                  rule: 'asyncNumber',
-                  actual: 'string',
-                  expected: 'number'
+                  rule: 'asyncString',
+                  actual: 'object',
+                  expected: 'string'
+                },
+                {
+                  rule: 'asyncMaxLength',
+                  actual: 'x.length > maxLength',
+                  expected: 'x.length <= maxLength'
                 }
               ]
             }
-          },
-          shouldFail: {
-            errors: [
-              {
-                rule: 'asyncString',
-                actual: 'object',
-                expected: 'string'
-              },
-              {
-                rule: 'asyncMaxLength',
-                actual: 'x.length > maxLength',
-                expected: 'x.length <= maxLength'
-              }
-            ]
-          }
-        }, 'errors should be defined when the test fails');
-        done();
+          }, 'errors should be defined when the test fails');
+          done();
+        } catch (err) {
+          done(err);
+        }
       });
     });
 

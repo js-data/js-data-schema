@@ -1,3 +1,8 @@
+##### 1.2.4 - 08 April 2015
+
+###### Backwards compatible bug fixes
+- #15 - Rule names conflict with schema-attribute names
+
 ##### 1.2.3 - 07 April 2015
 
 ###### Backwards compatible bug fixes
