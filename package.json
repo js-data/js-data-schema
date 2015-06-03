@@ -71,5 +71,8 @@
   "bugs": {
     "url": "https://github.com/js-data/js-data-schema/issues",
     "email": "jason.dobry@gmail.com"
+  },
+  "scripts": {
+    "test": "grunt test"
   }
 }
