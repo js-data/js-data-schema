@@ -1,3 +1,9 @@
+##### 1.2.5 - 03 June 2015
+
+###### Backwards compatible bug fixes
+- #18 - IE8 support
+- #19 - return when no schemaRules are set (ie8 compat) Thanks @willrstern
+
 ##### 1.2.4 - 08 April 2015
 
 ###### Backwards compatible bug fixes
